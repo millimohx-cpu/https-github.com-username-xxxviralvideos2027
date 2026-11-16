@@ -28,7 +28,7 @@ export default function HomePage() {
       <AgeNotice />
       <header className="topbar">
         <a className="brand" href="#"><span className="brandIcon">X</span><span>XXX<span className="red">VIRAL</span><small>VIDEOS 2027 · UI DEMO</small></span></a>
-        <nav><a href="#browse">Browse</a><a href="#about">About this demo</a></nav>
+        <nav><a href="#browse">Browse</a><a href="#safety">Safety Centre</a><a href="/account">Account</a></nav>
         <span className="demoPill">PROTOTYPE</span>
       </header>
 
