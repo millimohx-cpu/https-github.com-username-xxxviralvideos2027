@@ -1,9 +1,28 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import AgeNotice from "@/components/AgeNotice";
 import { videos } from "@/data/videos";
 
 const categories = ["All", "Featured", "Studio", "New", "Popular", "Documentary", "Creators"];
 
 export default function HomePage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredVideos = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    return videos.filter((video) => {
+      const matchesCategory = activeCategory === "All" || video.category === activeCategory;
+      const matchesSearch =
+        !query ||
+        [video.title, video.category, video.description].some((value) =>
+          value.toLowerCase().includes(query)
+        );
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchQuery]);
+
   return (
     <main>
       <AgeNotice />
@@ -35,17 +54,56 @@ export default function HomePage() {
 
       <section className="catalogue" id="browse">
         <div className="sectionHeading"><div><p className="eyebrow">THE CATALOGUE</p><h2>Browse collections</h2></div><span className="muted">All items are fictional</span></div>
-        <div className="chips">{categories.map((category, i) => <span className={i === 0 ? "chip active" : "chip"} key={category}>{category}</span>)}</div>
-        <div className="videoGrid">
-          {videos.map((video, i) => (
-            <article className="videoCard" key={video.id}>
-              <div className={`thumbnail thumb${i + 1}`}><span className="demoTag">{video.label}</span><span className="playIcon">▶</span><span className="duration">{video.duration}</span></div>
-              <div className="cardMeta"><span>{video.category}</span><span>UI SAMPLE</span></div>
-              <h3>{video.title}</h3><p>{video.description}</p>
-              <button className="disabledButton" disabled>Playback unavailable in demo</button>
-            </article>
+        <div className="catalogueTools">
+          <label className="searchBox">
+            <span aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search sample collections..."
+              aria-label="Search sample collections"
+            />
+            {searchQuery && (
+              <button type="button" className="clearSearch" onClick={() => setSearchQuery("")} aria-label="Clear search">×</button>
+            )}
+          </label>
+          <span className="resultCount" aria-live="polite">{filteredVideos.length} of {videos.length} samples</span>
+        </div>
+        <div className="chips" aria-label="Filter sample catalogue by category">
+          {categories.map((category) => (
+            <button
+              type="button"
+              className={activeCategory === category ? "chip active" : "chip"}
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              aria-pressed={activeCategory === category}
+            >
+              {category}
+            </button>
           ))}
         </div>
+        {filteredVideos.length > 0 ? (
+          <div className="videoGrid">
+            {filteredVideos.map((video) => {
+              const originalIndex = videos.findIndex((item) => item.id === video.id);
+              return (
+                <article className="videoCard" key={video.id}>
+                  <div className={`thumbnail thumb${originalIndex + 1}`}><span className="demoTag">{video.label}</span><span className="playIcon">▶</span><span className="duration">{video.duration}</span></div>
+                  <div className="cardMeta"><span>{video.category}</span><span>UI SAMPLE</span></div>
+                  <h3>{video.title}</h3><p>{video.description}</p>
+                  <button className="disabledButton" disabled>Playback unavailable in demo</button>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="emptyState">
+            <strong>No sample collections found</strong>
+            <p>Try another search term or choose a different category.</p>
+            <button type="button" className="resetButton" onClick={() => { setSearchQuery(""); setActiveCategory("All"); }}>Clear filters</button>
+          </div>
+        )}
       </section>
 
       <section className="compliance" id="about">
