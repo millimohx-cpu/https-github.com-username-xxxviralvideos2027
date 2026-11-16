@@ -106,12 +106,26 @@ export default function HomePage() {
         )}
       </section>
 
+      <section className="safetyCentre" id="safety">
+        <div className="safetyHeading">
+          <p className="eyebrow">SAFETY & TRUST</p>
+          <h2>Safety & Compliance Centre</h2>
+          <p>These are planning areas for this prototype, not active verification, legal advice, or a statement that the service is approved to operate.</p>
+        </div>
+        <div className="safetyGrid">
+          <article className="safetyCard"><span className="safetyNumber">01</span><h3>Age assurance</h3><p>Choose a privacy-conscious, independently assessed age-assurance provider and apply the rules required in each permitted country before any restricted access.</p><span className="safetyStatus">PLANNING REQUIRED</span></article>
+          <article className="safetyCard"><span className="safetyNumber">02</span><h3>Content rights & consent</h3><p>Require documented distribution rights, performer age and identity checks, informed consent records, and a process to prevent unauthorized or non-consensual material.</p><span className="safetyStatus">DOCUMENTATION REQUIRED</span></article>
+          <article className="safetyCard"><span className="safetyNumber">03</span><h3>Reporting & takedown</h3><p>Establish a monitored reporting channel, urgent escalation, evidence preservation, review timelines, and a documented removal and appeal process before accepting content.</p><span className="safetyStatus">WORKFLOW NOT ACTIVE</span></article>
+          <article className="safetyCard"><span className="safetyNumber">04</span><h3>Privacy & security</h3><p>Publish reviewed privacy terms, minimize collected data, set retention limits, protect account information, and complete a security assessment before collecting user details.</p><span className="safetyStatus">POLICY NOT PUBLISHED</span></article>
+        </div>
+      </section>
+
       <section className="compliance" id="about">
         <div><p className="eyebrow">BEFORE ANY LAUNCH</p><h2>Rights. Safety. Compliance.</h2><p>This prototype is not a legal clearance or a production-ready adult service. Before publishing anything, obtain qualified legal advice, written provider approval, documented content rights, and effective jurisdiction-specific age assurance.</p></div>
         <ul><li>Documented distribution licence</li><li>Verified adult performers and releases</li><li>Country-specific access controls</li><li>Privacy, reporting and takedown process</li></ul>
       </section>
 
-      <footer><a className="brand footerBrand" href="#"><span className="brandIcon">X</span><span>XXX<span className="red">VIRAL</span><small>VIDEOS 2027 · UI DEMO</small></span></a><p>© 2027 UI prototype. Fictional sample catalogue.</p><div><a href="#about">Compliance notes</a><a href="#browse">Catalogue</a></div></footer>
+      <footer><a className="brand footerBrand" href="#"><span className="brandIcon">X</span><span>XXX<span className="red">VIRAL</span><small>VIDEOS 2027 · UI DEMO</small></span></a><p>© 2027 UI prototype. Fictional sample catalogue.</p><div><a href="#safety">Safety Centre</a><a href="#about">Compliance notes</a><a href="#browse">Catalogue</a></div></footer>
     </main>
   );
 }
